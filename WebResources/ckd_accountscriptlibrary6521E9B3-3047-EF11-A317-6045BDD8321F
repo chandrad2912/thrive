@@ -1,0 +1,26 @@
+var AccountFormJSLibrary = window.AccountFormJSLibrary || {};
+(function () {
+    // Code to run in the form OnLoad event
+    this.formOnLoad = function (executionContext) {
+        var formContext = executionContext.getFormContext();
+        var primaryContact = formContext.getAttribute("primarycontactid").getValue();
+        if (primaryContact != null) {
+        var id = primaryContact[0].id.replace(/[{}]/g, '');
+        formContext.getAttribute("ckd_primarycontactguid").setValue(id);
+        }
+    }
+
+    // Code to run in the column OnChange event 
+    this.primaryContactOnChange = function (executionContext) {
+        var formContext = executionContext.getFormContext();
+        var primaryContact = formContext.getAttribute("primarycontactid").getValue();
+        if (primaryContact != null) {
+            var id = primaryContact[0].id.replace(/[{}]/g, '');
+            formContext.getAttribute("ckd_primarycontactguid").setValue(id);
+        }
+        else{
+            formContext.getAttribute("ckd_primarycontactguid").setValue('');
+        }
+    }
+    
+}).call(AccountFormJSLibrary);
